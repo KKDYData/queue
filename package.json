@@ -1,6 +1,6 @@
 {
   "name": "@kkdy/queue",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "async queue",
   "main": "lib/index.cjs.js",
   "module": "lib/index.esm.js",
