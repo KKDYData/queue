@@ -1,15 +1,14 @@
 declare type Task = () => Promise<unknown>;
-declare type Queue = Task[];
 interface TaskQueueConfig {
-    finalTask: () => void;
-    onError: (e: Error) => void;
-    queue?: Queue;
+    finalTask?: () => void;
+    onError?: (e: Error) => void;
+    queue?: Task[];
 }
-export declare class TaskQueue {
+export declare class Queue {
     /**
-     * @type Queue
+     * @type Task[]
      */
-    queue: Queue;
+    queue: Task[];
     concurrency: number;
     total: number;
     done: number;
@@ -17,9 +16,9 @@ export declare class TaskQueue {
     finalTask?: () => void;
     onError?: (e: Error) => void;
     constructor(concurrency: number, config?: Partial<TaskQueueConfig>);
-    static of(concurrency: number | undefined, config: TaskQueueConfig): TaskQueue;
+    static of(concurrency?: number, config?: TaskQueueConfig): Queue;
     static Promise(concurrency: number, config: {
-        queue: Queue;
+        queue: Task[];
     }): Promise<void>;
     pushTask(task: Task): void;
     next(): void;
