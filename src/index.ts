@@ -1,19 +1,18 @@
 import { callHook } from './utils'
 
 type Task = () => Promise<unknown>
-type Queue = Task[]
 
 interface TaskQueueConfig {
-  finalTask: () => void
-  onError: (e: Error) => void
-  queue?: Queue
+  finalTask?: () => void
+  onError?: (e: Error) => void
+  queue?: Task[]
 }
 
-export class TaskQueue {
+export class Queue {
   /**
-   * @type Queue
+   * @type Task[]
    */
-  queue: Queue
+  queue: Task[]
   concurrency: number
 
   total = 0
@@ -33,14 +32,14 @@ export class TaskQueue {
     return this
   }
 
-  static of(concurrency: number = 1, config: TaskQueueConfig) {
-    return new TaskQueue(concurrency, config)
+  static of(concurrency: number = 1, config?: TaskQueueConfig) {
+    return new Queue(concurrency, config)
   }
 
   static Promise(
     concurrency: number,
     config: {
-      queue: Queue
+      queue: Task[]
     }
   ): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -48,7 +47,7 @@ export class TaskQueue {
         resolve()
         return
       }
-      const t = TaskQueue.of(concurrency, {
+      const t = Queue.of(concurrency, {
         onError: reject,
         finalTask: resolve,
         ...config,
@@ -72,7 +71,6 @@ export class TaskQueue {
           this.done++
           this.next()
           if (this.isDone()) {
-            console.log('Task is over')
             callHook(this.finalTask)
           }
         })
@@ -96,6 +94,7 @@ export class TaskQueue {
         return resolve()
       } else {
         this.finalTask = resolve
+        this.onError = reject
       }
     })
   }
