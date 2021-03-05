@@ -1,0 +1,22 @@
+{
+  "name": "@kkdy/queue",
+  "version": "0.0.1",
+  "description": "async queue",
+  "main": "lib/index.cjs.js",
+  "typings": "lib/index.d.ts",
+  "repository": "git@github.com:KKDYData/queue.git",
+  "author": "odex21",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "rollup": "^2.40.0",
+    "rollup-plugin-clear": "^2.0.7",
+    "rollup-plugin-typescript2": "^0.30.0",
+    "typescript": "^4.2.3"
+  }
+}
