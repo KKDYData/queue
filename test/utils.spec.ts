@@ -10,6 +10,7 @@ describe('utils - callHook', () => {
 
   test('undefined hook', () => {
     const hook = undefined
-    expect(() => callHook(hook)).toBeDefined()
+    expect(callHook(hook)).toBeUndefined()
+    expect(callHook()).toBeUndefined()
   })
 })

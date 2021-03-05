@@ -35,6 +35,7 @@ describe.only('Promise mode', () => {
 
   test('zero queue - allDone', async () => {
     const q = Queue.of(10, { queue: [] })
+    q.next()
     await expect(q.allDone()).resolves.toBeUndefined()
   })
 })

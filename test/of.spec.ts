@@ -103,4 +103,24 @@ describe('Queue.of', () => {
     await q.allDone()
     expect(q.isDone()).toBe(true)
   })
+
+  test('one by one', async () => {
+    const q = Queue.of()
+
+    const tasks = expected.map((e) => () => {
+      if (e === 0) {
+        expect(q.queue.length).toBe(2)
+      }
+      return Promise.resolve()
+    })
+
+    tasks.forEach((t) => q.pushTask(t))
+
+    // expect(q.queue.length).toBe(expected.length)
+
+    q.next()
+
+    await q.allDone()
+    expect(q.isDone()).toBe(true)
+  })
 })
