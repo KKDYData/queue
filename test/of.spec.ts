@@ -56,7 +56,6 @@ describe('Queue.of', () => {
 
     const tasks = expected.map((e) => () => {
       result.push(e)
-      console.log('e', e)
       return Promise.resolve()
     })
 
